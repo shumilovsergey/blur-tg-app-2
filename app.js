@@ -1,33 +1,6 @@
 // app.js
 
-const DATA = {
-  classical: [
-    {
-      name: "Beethoven",
-      cover: "./assets/cover.png",
-      songs: ["./assets/1.wav", "./assets/1.wav"]
-    },
-    {
-      name: "Mozart",
-      cover: "./data/covers/mozart.jpg",
-      songs: ["./data/audio/mozart1.mp3", "./data/audio/mozart2.mp3"]
-    }
-  ],
-  jazz: [
-    {
-      name: "Miles Davis",
-      cover: "./data/covers/miles.jpg",
-      songs: ["./data/audio/miles1.mp3", "./data/audio/miles2.mp3"]
-    }
-  ],
-  electronic: [
-    {
-      name: "Daft Punk",
-      cover: "./data/covers/daftpunk.jpg",
-      songs: ["./data/audio/daft1.mp3", "./data/audio/daft2.mp3"]
-    }
-  ]
-};
+const DATA = {};
 
 const state = {
   screen: "genres",
@@ -48,6 +21,12 @@ navButtons.forEach(btn => {
   });
 });
 
+async function loadGenre(genre) {
+  if (DATA[genre]) return;
+  const response = await fetch(`./data/${genre}.json`);
+  DATA[genre] = await response.json();
+}
+
 function render() {
   app.innerHTML = "";
   if (state.screen === "genres") renderGenres();
@@ -56,12 +35,14 @@ function render() {
 }
 
 function renderGenres() {
-  Object.keys(DATA).forEach(genre => {
+  const genres = ["стендапы", "подкасты", "книги", "шумилов сергей"];
+  genres.forEach(genre => {
     const el = document.createElement("div");
     el.className = "card genre";
     el.textContent = genre.toUpperCase();
-    el.addEventListener("click", () => {
+    el.addEventListener("click", async () => {
       state.currentGenre = genre;
+      await loadGenre(genre);
       state.screen = "artists";
       render();
     });
@@ -94,7 +75,7 @@ function renderArtists() {
       ul.className = "song-list";
       artist.songs.forEach(songPath => {
         const li = document.createElement("li");
-        const songName = songPath.split("/").pop().replace(".mp3", "");
+        const songName = songPath.split("/").pop().replace(".mp3", "").replace(".wav", "");
         li.textContent = songName;
         li.addEventListener("click", () => playSong(artist.name, songName, songPath, artist.cover));
         ul.appendChild(li);
@@ -167,14 +148,14 @@ function playSong(artistName, songTitle, songPath, coverPath) {
 }
 
 function handlePlayerAction(action) {
-  const genreArtists = DATA[state.currentSong.genre];
+  const artists = DATA[state.currentSong.genre];
   let allSongs = [];
 
-  genreArtists.forEach(a => {
+  artists.forEach(a => {
     a.songs.forEach(path => {
       allSongs.push({
         artist: a.name,
-        song: path.split("/").pop().replace(".mp3", ""),
+        song: path.split("/").pop().replace(".mp3", "").replace(".wav", ""),
         path,
         cover: a.cover
       });
