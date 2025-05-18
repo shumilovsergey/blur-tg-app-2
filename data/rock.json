@@ -1,0 +1,18 @@
+[
+  {
+    "artist_name": "John Coltrane",
+    "artist_cover_path": "./assets/coltrane.jpg",
+    "song_list": [
+      "./assets/coltrane1.mp3",
+      "./assets/coltrane2.mp3"
+    ]
+  },
+  {
+    "artist_name": "Miles Davis",
+    "artist_cover_path": "./assets/miles.jpg",
+    "song_list": [
+      "./assets/miles1.mp3",
+      "./assets/miles2.mp3"
+    ]
+  }
+]

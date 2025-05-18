@@ -1,0 +1,18 @@
+[
+  {
+    "artist_name": "John Coltrane",
+    "artist_cover_path": "./assets/cover.png",
+    "song_list": [
+      "./assets/1.wav",
+      "./assets/1.wav"
+    ]
+  },
+  {
+    "artist_name": "John Coltrane",
+    "artist_cover_path": "./assets/cover.png",
+    "song_list": [
+      "./assets/1.wav",
+      "./assets/1.wav"
+    ]
+  }
+]
