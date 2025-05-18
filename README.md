@@ -13,5 +13,4 @@ A lightweight music player built for Telegram Mini Apps — no frameworks, just 
 - 🖼️ Artist cover display with song list
 - 🔊 Real audio playback via HTML5 `<audio>`, persists while app is open
 
-## 📁 Project Structure
 

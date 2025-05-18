@@ -1,6 +1,6 @@
 [
   {
-    "name": "Beethoven",
+    "name": "",
     "cover": "./assets/cover.png",
     "songs": ["./assets/1.wav", "./assets/1.wav"]
   },

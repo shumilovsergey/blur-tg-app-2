@@ -1,12 +1,12 @@
 [
   {
-    "name": "Beethoven",
+    "name": "план эвакуации",
     "cover": "./assets/cover.png",
-    "songs": ["./assets/1.wav", "./assets/1.wav"]
+    "songs": ["./assets/1.wav"]
   },
   {
-    "name": "Mozart",
-    "cover": "./data/covers/mozart.jpg",
-    "songs": ["./data/audio/mozart1.mp3", "./data/audio/mozart2.mp3"]
+    "name": "кароль говорит",
+    "cover": "./data/covers/кароль говорит обложка.jpg",
+    "songs": ["./data/audio/ко_1.mp3", "./data/audio/ко_2.mp3"]
   }
 ]
