@@ -112,19 +112,19 @@ function renderPlayer() {
   controls.className = "player-controls";
 
   const prevBtn = document.createElement("button");
-  prevBtn.textContent = "Prev";
+  prevBtn.textContent = "←";
   prevBtn.addEventListener("click", () => handlePlayerAction("prev"));
 
   const playPauseBtn = document.createElement("button");
-  playPauseBtn.textContent = state.isPlaying ? "Pause" : "Play";
+  playPauseBtn.textContent = state.isPlaying ? "⏸" : "▶";
   playPauseBtn.addEventListener("click", () => handlePlayerAction(state.isPlaying ? "pause" : "play"));
 
   const nextBtn = document.createElement("button");
-  nextBtn.textContent = "Next";
+  nextBtn.textContent = "→";
   nextBtn.addEventListener("click", () => handlePlayerAction("next"));
 
   const randomBtn = document.createElement("button");
-  randomBtn.textContent = "Random";
+  randomBtn.textContent = "⇄";
   randomBtn.addEventListener("click", () => handlePlayerAction("random"));
 
   controls.append(prevBtn, playPauseBtn, nextBtn, randomBtn);
