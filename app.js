@@ -35,7 +35,7 @@ function render() {
 }
 
 function renderGenres() {
-  const genres = ["стендапы", "подкасты", "книги", "шумилов сергей"];
+  const genres = ["стендапы", "шумилов сергей"];
   genres.forEach(genre => {
     const el = document.createElement("div");
     el.className = "card genre";
