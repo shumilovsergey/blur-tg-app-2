@@ -11,6 +11,16 @@ const state = {
   isPlaying: false
 };
 
+// When a track ends, automatically play the next one
+state.audio.addEventListener('ended', () => handlePlayerAction('next'));
+
+// Utility to format seconds into M:SS
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60) || 0;
+  const secs = Math.floor(seconds % 60) || 0;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
 const app = document.getElementById("app");
 const navButtons = document.querySelectorAll("#navigation button");
 
@@ -75,7 +85,7 @@ function renderArtists() {
       ul.className = "song-list";
       artist.songs.forEach(songPath => {
         const li = document.createElement("li");
-        const songName = songPath.split("/").pop().replace(".mp3", "").replace(".wav", "");
+        const songName = songPath.split("/").pop().replace(/\.(mp3|wav)$/i, "");
         li.textContent = songName;
         li.addEventListener("click", () => playSong(artist.name, songName, songPath, artist.cover));
         ul.appendChild(li);
@@ -105,9 +115,38 @@ function renderPlayer() {
   card.appendChild(img);
 
   const info = document.createElement("div");
-  info.textContent = `${artist} - ${song}`;
+  const firstChar = artist.charAt(0);
+  // Display artist only if name starts uppercase
+  info.textContent = firstChar === firstChar.toUpperCase() ? `${artist} - ${song}` : `${song}`;
   card.appendChild(info);
 
+  // Progress bar container
+  const progressContainer = document.createElement('div');
+  progressContainer.className = 'progress-container';
+  progressContainer.style.position = 'relative';
+  progressContainer.style.width = '100%';
+  progressContainer.style.height = '2px';
+  // progressContainer.style.background = '#ddd';
+progressContainer.style.background = 'rgba(255, 255, 255, 0.4)';
+  progressContainer.style.margin = '8px 0';
+
+  const progressBar = document.createElement('div');
+  progressBar.className = 'progress-bar';
+  progressBar.style.height = '100%';
+  progressBar.style.width = '0%';
+  // progressBar.style.background = '#4285f4';
+  progressBar.style.background = '#7b79b5';
+  progressContainer.appendChild(progressBar);
+  card.appendChild(progressContainer);
+
+  // Time info (current / remaining)
+  const timeInfo = document.createElement('div');
+  timeInfo.className = 'time-info';
+  timeInfo.style.fontSize = '0.9em';
+  // timeInfo.textContent = `0:00 / 0:00`;
+  card.appendChild(timeInfo);
+
+  // Controls: prev / play-pause / next / random
   const controls = document.createElement("div");
   controls.className = "player-controls";
 
@@ -130,6 +169,14 @@ function renderPlayer() {
   controls.append(prevBtn, playPauseBtn, nextBtn, randomBtn);
   card.appendChild(controls);
   app.appendChild(card);
+
+  // Update progress and times
+  state.audio.ontimeupdate = () => {
+    if (!state.audio.duration) return;
+    const percent = (state.audio.currentTime / state.audio.duration) * 100;
+    progressBar.style.width = `${percent}%`;
+  };
+
 }
 
 function playSong(artistName, songTitle, songPath, coverPath) {
@@ -140,6 +187,10 @@ function playSong(artistName, songTitle, songPath, coverPath) {
     path: songPath,
     cover: coverPath
   };
+  // Reset any previous time handlers
+  state.audio.onloadedmetadata = null;
+  state.audio.ontimeupdate = null;
+
   state.audio.src = songPath;
   state.audio.play();
   state.isPlaying = true;
@@ -155,7 +206,7 @@ function handlePlayerAction(action) {
     a.songs.forEach(path => {
       allSongs.push({
         artist: a.name,
-        song: path.split("/").pop().replace(".mp3", "").replace(".wav", ""),
+        song: path.split("/").pop().replace(/\.(mp3|wav)$/i, ""),
         path,
         cover: a.cover
       });
@@ -200,4 +251,5 @@ function handlePlayerAction(action) {
   render();
 }
 
+// Initial render
 render();
