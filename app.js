@@ -155,7 +155,7 @@ progressContainer.style.background = 'rgba(255, 255, 255, 0.4)';
   prevBtn.addEventListener("click", () => handlePlayerAction("prev"));
 
   const playPauseBtn = document.createElement("button");
-  playPauseBtn.textContent = state.isPlaying ? "⏸" : "▶";
+  playPauseBtn.textContent = state.isPlaying ? "||" : "▶";
   playPauseBtn.addEventListener("click", () => handlePlayerAction(state.isPlaying ? "pause" : "play"));
 
   const nextBtn = document.createElement("button");

@@ -4,18 +4,18 @@
 body, html {
   margin: 0;
   padding: 0;
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   height: 100vh;
   background: url('./data/bg.png') no-repeat center center fixed;
   background-size: cover;
-  color: #333;
+  color: #333 !important;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(5px);
 
   font-size: large;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif !important;
   font-weight: 300;
+
 }
 
 header#navigation {
