@@ -1,50 +1,55 @@
 [
   {
     "name": "король говорит",
-    "cover": "./assets/шумиловсергей/король говорит/1.jpg",
+    "path": "./assets/sh/korol_govorit",
+    "cover": "0.jpg",
     "songs": [
-      "./assets/шумиловсергей/король говорит/track__01.wav",
-      "./assets/шумиловсергей/король говорит/track__02.wav",
-      "./assets/шумиловсергей/король говорит/track__03.wav",
-      "./assets/шумиловсергей/король говорит/track__04.wav"
+      { "name": "track__01", "file_name": "track__01.wav" },
+      { "name": "track__02", "file_name": "track__02.wav" },
+      { "name": "track__03", "file_name": "track__03.wav" },
+      { "name": "track__04", "file_name": "track__04.wav" }
     ]
   },
   {
     "name": "асколеин",
-    "cover": "./assets/шумиловсергей/асколеин/1.jpg",
+    "path": "./assets/sh/ascolein",
+    "cover": "0.jpg",
     "songs": [
-      "./assets/шумиловсергей/асколеин/золотой улей.wav",
-      "./assets/шумиловсергей/асколеин/игра на доверие.wav",
-      "./assets/шумиловсергей/асколеин/катти сарк.wav",
-      "./assets/шумиловсергей/асколеин/таблетки.wav",
-      "./assets/шумиловсергей/асколеин/маяк (feat. Александра О.).wav",
-      "./assets/шумиловсергей/асколеин/отключение.wav",
-      "./assets/шумиловсергей/асколеин/обнуление (feat. Константин Ч.).wav",
-      "./assets/шумиловсергей/асколеин/жатва (feat. Lord Raiden).wav"
+      { "name": "золотой улей", "file_name": "1.wav" },
+      { "name": "игра на доверие", "file_name": "2.wav" },
+      { "name": "катти сарк", "file_name": "3.wav" },
+      { "name": "таблетки", "file_name": "4.wav" },
+      { "name": "маяк (feat. Александра О.)", "file_name": "5.wav" },
+      { "name": "отключение", "file_name": "6.wav" },
+      { "name": "обнуление (feat. Константин Ч.)", "file_name": "7.wav" },
+      { "name": "жатва (feat. Lord Raiden)", "file_name": "8.wav" }
     ]
   },
   {
     "name": "план эвакуации",
-    "cover": "./assets/шумиловсергей/план эвакуации/1.jpg",
+    "path": "./assets/sh/plan_evacuacii",
+    "cover": "0.jpg",
     "songs": [
-      "./assets/шумиловсергей/план эвакуации/план эвакуации.wav"
+      { "name": "план эвакуации", "file_name": "1.wav" }
     ]
   },
   {
     "name": "бог внутри машины",
-    "cover": "./assets/шумиловсергей/бог внутри машины/1.jpg",
+    "path": "./assets/sh/bog_vnutri_mashini",
+    "cover": "0.jpg",
     "songs": [
-      "./assets/шумиловсергей/бог внутри машины/бог внутри машины.wav"
+      { "name": "бог внутри машины", "file_name": "1.wav" }
     ]
   },
   {
     "name": "пролог",
-    "cover": "./assets/шумиловсергей/пролог/1.jpg",
+    "path": "./assets/sh/prolog",
+    "cover": "0.jpg",
     "songs": [
-      "./assets/шумиловсергей/пролог/бульвайф.wav",
-      "./assets/шумиловсергей/пролог/холод.wav",
-      "./assets/шумиловсергей/пролог/лимбо.wav",
-      "./assets/шумиловсергей/пролог/шрамы.wav"
+      { "name": "бульвайф", "file_name": "1.wav" },
+      { "name": "холод", "file_name": "2.wav" },
+      { "name": "лимбо", "file_name": "3.wav" },
+      { "name": "шрамы", "file_name": "4.wav" }
     ]
   }
 ]

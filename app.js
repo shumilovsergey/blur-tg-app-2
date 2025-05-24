@@ -1,4 +1,5 @@
-// app.js
+let currentOpenFAQ = null;
+let currentOpenProduct = null;
 
 const DATA = {};
 
@@ -11,10 +12,8 @@ const state = {
   isPlaying: false
 };
 
-// When a track ends, automatically play the next one
 state.audio.addEventListener('ended', () => handlePlayerAction('next'));
 
-// Utility to format seconds into M:SS
 function formatTime(seconds) {
   const mins = Math.floor(seconds / 60) || 0;
   const secs = Math.floor(seconds % 60) || 0;
@@ -78,20 +77,21 @@ function renderArtists() {
     if (state.expandedArtist === index) {
       const img = document.createElement("img");
       img.className = "artist-cover";
-      img.src = artist.cover;
+      img.src = `${artist.path}/${artist.cover}`;
       card.appendChild(img);
 
       const ul = document.createElement("ul");
       ul.className = "song-list";
-      artist.songs.forEach(songPath => {
+      artist.songs.forEach(song => {
         const li = document.createElement("li");
-        const songName = songPath.split("/").pop().replace(/\.(mp3|wav)$/i, "");
-        li.textContent = songName;
-        li.addEventListener("click", () => playSong(artist.name, songName, songPath, artist.cover));
+        li.textContent = song.name;
+        const fullPath = `${artist.path}/${song.file_name}`;
+        li.addEventListener("click", () => playSong(artist.name, song.name, fullPath, `${artist.path}/${artist.cover}`));
         ul.appendChild(li);
       });
       card.appendChild(ul);
     }
+
     app.appendChild(card);
   });
 }
@@ -99,7 +99,7 @@ function renderArtists() {
 function renderPlayer() {
   if (!state.currentSong) {
     const msg = document.createElement("div");
-    msg.textContent = "No song playing.";
+    msg.textContent = "ничего не выбрано";
     app.appendChild(msg);
     return;
   }
@@ -116,37 +116,30 @@ function renderPlayer() {
 
   const info = document.createElement("div");
   const firstChar = artist.charAt(0);
-  // Display artist only if name starts uppercase
   info.textContent = firstChar === firstChar.toUpperCase() ? `${artist} - ${song}` : `${song}`;
   card.appendChild(info);
 
-  // Progress bar container
   const progressContainer = document.createElement('div');
   progressContainer.className = 'progress-container';
   progressContainer.style.position = 'relative';
   progressContainer.style.width = '100%';
   progressContainer.style.height = '2px';
-  // progressContainer.style.background = '#ddd';
-progressContainer.style.background = 'rgba(255, 255, 255, 0.4)';
+  progressContainer.style.background = 'rgba(255, 255, 255, 0.4)';
   progressContainer.style.margin = '8px 0';
 
   const progressBar = document.createElement('div');
   progressBar.className = 'progress-bar';
   progressBar.style.height = '100%';
   progressBar.style.width = '0%';
-  // progressBar.style.background = '#4285f4';
   progressBar.style.background = '#7b79b5';
   progressContainer.appendChild(progressBar);
   card.appendChild(progressContainer);
 
-  // Time info (current / remaining)
   const timeInfo = document.createElement('div');
   timeInfo.className = 'time-info';
   timeInfo.style.fontSize = '0.9em';
-  // timeInfo.textContent = `0:00 / 0:00`;
   card.appendChild(timeInfo);
 
-  // Controls: prev / play-pause / next / random
   const controls = document.createElement("div");
   controls.className = "player-controls";
 
@@ -170,13 +163,11 @@ progressContainer.style.background = 'rgba(255, 255, 255, 0.4)';
   card.appendChild(controls);
   app.appendChild(card);
 
-  // Update progress and times
   state.audio.ontimeupdate = () => {
     if (!state.audio.duration) return;
     const percent = (state.audio.currentTime / state.audio.duration) * 100;
     progressBar.style.width = `${percent}%`;
   };
-
 }
 
 function playSong(artistName, songTitle, songPath, coverPath) {
@@ -187,7 +178,6 @@ function playSong(artistName, songTitle, songPath, coverPath) {
     path: songPath,
     cover: coverPath
   };
-  // Reset any previous time handlers
   state.audio.onloadedmetadata = null;
   state.audio.ontimeupdate = null;
 
@@ -202,13 +192,13 @@ function handlePlayerAction(action) {
   const artists = DATA[state.currentSong.genre];
   let allSongs = [];
 
-  artists.forEach(a => {
-    a.songs.forEach(path => {
+  artists.forEach(artist => {
+    artist.songs.forEach(song => {
       allSongs.push({
-        artist: a.name,
-        song: path.split("/").pop().replace(/\.(mp3|wav)$/i, ""),
-        path,
-        cover: a.cover
+        artist: artist.name,
+        song: song.name,
+        path: `${artist.path}/${song.file_name}`,
+        cover: `${artist.path}/${artist.cover}`
       });
     });
   });
@@ -219,22 +209,20 @@ function handlePlayerAction(action) {
 
   if (action === "next") {
     const nextIndex = (currentIndex + 1) % allSongs.length;
-    const nextSong = allSongs[nextIndex];
-    playSong(nextSong.artist, nextSong.song, nextSong.path, nextSong.cover);
+    playSong(allSongs[nextIndex].artist, allSongs[nextIndex].song, allSongs[nextIndex].path, allSongs[nextIndex].cover);
     return;
   }
 
   if (action === "prev") {
     const prevIndex = (currentIndex - 1 + allSongs.length) % allSongs.length;
-    const prevSong = allSongs[prevIndex];
-    playSong(prevSong.artist, prevSong.song, prevSong.path, prevSong.cover);
+    playSong(allSongs[prevIndex].artist, allSongs[prevIndex].song, allSongs[prevIndex].path, allSongs[prevIndex].cover);
     return;
   }
 
   if (action === "random") {
     const randomIndex = Math.floor(Math.random() * allSongs.length);
-    const randomSong = allSongs[randomIndex];
-    playSong(randomSong.artist, randomSong.song, randomSong.path, randomSong.cover);
+    const song = allSongs[randomIndex];
+    playSong(song.artist, song.song, song.path, song.cover);
     return;
   }
 
@@ -251,5 +239,4 @@ function handlePlayerAction(action) {
   render();
 }
 
-// Initial render
 render();
