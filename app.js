@@ -44,17 +44,23 @@ function render() {
 }
 
 function renderGenres() {
-  const genres = ["стендапы", "шумилов сергей"];
+  const genres = ["стендапы", "шумилов сергей", "описание и контакты"];
   genres.forEach(genre => {
     const el = document.createElement("div");
     el.className = "card genre";
     el.textContent = genre.toUpperCase();
+
     el.addEventListener("click", async () => {
-      state.currentGenre = genre;
-      await loadGenre(genre);
-      state.screen = "artists";
-      render();
+      if (genre === "описание и контакты") {
+        renderDescription();
+      } else {
+        state.currentGenre = genre;
+        await loadGenre(genre);
+        state.screen = "artists";
+        render();
+      }
     });
+
     app.appendChild(el);
   });
 }
@@ -238,5 +244,64 @@ function handlePlayerAction(action) {
 
   render();
 }
+
+function renderDescription() {
+  app.innerHTML = "";
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const title = document.createElement("h2");
+  title.textContent = "О приложении:";
+  card.appendChild(title);
+
+  const text = document.createElement("p");
+  text.textContent = `Я устал от пользовательской политики медиа-платформ, поэтому решил создать что-то простое — чтобы слушать то, что хочу, когда хочу, и на любом устройстве.
+
+  Так появился Blur — пример того, как я представляю себе персональный аудиоплеер.
+
+  Если вы хотите узнать больше обо мне или моих проектах — welcome:`;
+  
+  text.style.whiteSpace = "pre-line";
+  text.style.textAlign = "left";
+  card.appendChild(text);
+
+  const btnContainer = document.createElement("div");
+  btnContainer.style.display = "flex";
+  btnContainer.style.flexDirection = "column";
+  btnContainer.style.gap = "12px";
+  btnContainer.style.marginTop = "20px";
+  btnContainer.style.alignItems = "flex-start";
+
+  const websiteBtn = document.createElement("button");
+  websiteBtn.textContent = "🌐 Сайт";
+  websiteBtn.className = "link-button";
+  websiteBtn.addEventListener("click", () => {
+    window.open("https://sh-development.ru", "_blank");
+  });
+  btnContainer.appendChild(websiteBtn);
+
+  const telegramBtn = document.createElement("button");
+  telegramBtn.textContent = "💬 Telegram";
+  telegramBtn.className = "link-button";
+  telegramBtn.addEventListener("click", () => {
+    window.open("https://t.me/sergey_showmelove", "_blank");
+  });
+  btnContainer.appendChild(telegramBtn);
+
+  const mailBtn = document.createElement("button");
+  mailBtn.textContent = "✉️ Почта";
+  mailBtn.className = "link-button";
+  mailBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText("wumilovsergey@gmail.com").then(() => {
+      alert("wumilovsergey@gmail.com - Почта скопирована");
+    });
+  });
+  btnContainer.appendChild(mailBtn);
+
+  card.appendChild(btnContainer);
+  app.appendChild(card);
+}
+
 
 render();
