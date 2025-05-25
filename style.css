@@ -36,6 +36,7 @@ header#navigation button {
   border-radius: 1.5rem;
   font-size: 1rem;
   cursor: pointer;
+  color: #333 !important;
   transition: background-color 0.3s, transform 0.2s;
   backdrop-filter: blur(6px);
 }
