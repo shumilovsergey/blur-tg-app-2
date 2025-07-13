@@ -18,27 +18,271 @@ body, html {
 
 }
 
-header#navigation {
+footer#navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem 1rem 0 0;
+  transition: transform 0.3s ease;
+}
+
+footer#navigation.hidden {
+  transform: translateY(100%);
+}
+
+/* Mini Player Styles */
+.mini-player {
+  position: fixed;
+  bottom: 6rem;
+  left: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
   padding: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0 0 1rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mini-player:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.mini-player-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.mini-cover {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  margin-right: 0.75rem;
+}
+
+.mini-title {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+}
+
+.mini-controls button {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.3s, transform 0.2s;
+  backdrop-filter: blur(6px);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-controls button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
+}
+
+.mini-controls button svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Full Player Styles */
+.full-player {
+  position: fixed;
+  bottom: 6rem;
+  left: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+}
+
+.full-player-cover {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 1rem;
+  object-fit: cover;
+  margin: 0 auto 1rem auto;
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.full-player-info {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.full-progress-container {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  margin: 1rem 0;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.full-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #7b79b5, #9b9be6);
+  border-radius: 2px;
+  transition: width 0.1s ease;
+  pointer-events: none;
+}
+
+.full-progress-handle {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.25rem;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  border: 2px solid rgba(123, 121, 181, 0.8);
+}
+
+.full-progress-handle:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.full-progress-handle:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.full-time-info {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.full-player-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.full-player-controls button {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.full-player-controls button.play-pause-btn {
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+}
+
+.full-player-controls button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.full-player-controls button svg {
+  width: 24px;
+  height: 24px;
 }
 
 button {
   background-color: rgba(255, 255, 255, 0.4);
   border: none;
   padding: 0.6rem 1.2rem;
-  border-radius: 1.5rem;
-  font-size: 1rem;
+  border-radius: 0.75rem;
+  font-size: 1.5rem;
   cursor: pointer;
   color: #333 !important;
   transition: background-color 0.3s, transform 0.2s;
   backdrop-filter: blur(6px);
+  min-width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer#navigation button {
+  border-radius: 0.75rem;
+}
+
+footer#navigation button:first-child {
+  margin-right: auto;
+}
+
+footer#navigation button:last-child {
+  margin-left: auto;
+}
+
+footer#navigation button:nth-child(2) {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 button:hover {
@@ -48,6 +292,7 @@ button:hover {
 
 main#app {
   flex: 1;
+  padding-bottom: 10rem;
   overflow-y: auto;
   padding: 1rem;
   display: flex;
@@ -55,6 +300,30 @@ main#app {
   gap: 0.5rem;
   backdrop-filter: blur(4px);
   text-align: center;
+}
+
+/* Link buttons in description */
+.link-button {
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  border: none !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 0.75rem !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  color: #333 !important;
+  transition: background-color 0.3s, transform 0.2s !important;
+  backdrop-filter: blur(6px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.link-button:hover {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  transform: scale(1.05) !important;
 }
 
 .card {
