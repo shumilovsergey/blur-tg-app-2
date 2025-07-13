@@ -142,7 +142,10 @@ function renderArtists() {
         const li = document.createElement("li");
         li.textContent = song.name;
         const fullPath = `${artist.path}/${song.file_name}`;
-        li.addEventListener("click", () => playSong(artist.name, song.name, fullPath, `${artist.path}/${artist.cover}`));
+        li.addEventListener("click", (e) => {
+          e.stopPropagation();
+          playSong(artist.name, song.name, fullPath, `${artist.path}/${artist.cover}`);
+        });
         ul.appendChild(li);
       });
       card.appendChild(ul);
@@ -589,5 +592,9 @@ setInterval(() => {
   }
 }, 1000);
 
+// Detect Telegram environment and add class for styling
+if (window.Telegram && window.Telegram.WebApp) {
+  document.body.classList.add('tg-viewport');
+}
 
 render();

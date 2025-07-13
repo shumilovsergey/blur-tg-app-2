@@ -15,7 +15,63 @@ body, html {
   font-size: large;
   font-family: 'Inter', sans-serif !important;
   font-weight: 300;
+}
 
+/* Telegram WebView specific fixes */
+.tg-viewport body,
+body.tg-viewport {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.tg-viewport main#app {
+  padding-bottom: 6rem;
+  padding-top: 3.5rem;
+  margin-top: 1rem;
+}
+
+body.tg-viewport .mini-player {
+  background: rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.tg-viewport .card {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+body.tg-viewport footer#navigation {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Detect Telegram environment and apply fixes */
+@media screen and (max-width: 768px) {
+  body {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  main#app {
+    padding-bottom: 6rem;
+    padding-top: 3.5rem;
+    margin-top: 1rem;
+  }
+  
+  .mini-player {
+    background: rgba(255, 255, 255, 0.4);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  footer#navigation {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
+  }
 }
 
 footer#navigation {
@@ -28,39 +84,44 @@ footer#navigation {
   align-items: center;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem 1rem 0 0;
   transition: transform 0.3s ease;
+  z-index: 1001;
 }
 
 footer#navigation.hidden {
   transform: translateY(100%);
 }
 
-/* Mini Player Styles */
+/* Mini Player Styles - Top Bar */
 .mini-player {
   position: fixed;
-  bottom: 6rem;
-  left: 1rem;
-  right: 1rem;
+  top: 0;
+  left: 0;
+  right: 0;
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 0.75rem;
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0 0 1rem 1rem;
+  padding: 0.25rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 1000;
+  height: 2.5rem;
 }
 
 .mini-player:hover {
   background: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
+  transform: translateY(2px);
 }
 
 .mini-player-info {
@@ -71,9 +132,9 @@ footer#navigation.hidden {
 }
 
 .mini-cover {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.25rem;
   object-fit: cover;
   margin-right: 0.75rem;
 }
@@ -96,15 +157,16 @@ footer#navigation.hidden {
 .mini-controls button {
   background-color: rgba(255, 255, 255, 0.6);
   border: none;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
   cursor: pointer;
   color: #333;
   transition: background-color 0.3s, transform 0.2s;
   backdrop-filter: blur(6px);
-  width: 2.5rem;
-  height: 2.5rem;
+  -webkit-backdrop-filter: blur(6px);
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,8 +178,8 @@ footer#navigation.hidden {
 }
 
 .mini-controls button svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 /* Full Player Styles */
@@ -269,6 +331,16 @@ button {
 
 footer#navigation button {
   border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+footer#navigation button:hover {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  transform: scale(1.05);
 }
 
 footer#navigation button:first-child {
@@ -285,6 +357,10 @@ footer#navigation button:nth-child(2) {
   transform: translateX(-50%);
 }
 
+footer#navigation button:nth-child(2):hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
 button:hover {
   background-color: rgba(255, 255, 255, 0.6);
   transform: scale(1.05);
@@ -292,14 +368,19 @@ button:hover {
 
 main#app {
   flex: 1;
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
+  padding-top: 3.5rem;
+  margin-top: 1rem;
   overflow-y: auto;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   backdrop-filter: blur(4px);
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 /* Link buttons in description */
