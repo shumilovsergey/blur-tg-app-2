@@ -630,11 +630,40 @@ if (window.Telegram && window.Telegram.WebApp) {
   });
 }
 
+// Force correct styling for Telegram mobile
+function fixTelegramStyling() {
+  // Remove any Telegram-injected inline styles
+  document.body.style.removeProperty('background');
+  document.body.style.removeProperty('backgroundColor');
+  document.body.style.removeProperty('background-color');
+  
+  // Force our background
+  document.body.style.setProperty('background', 'url("./data/bg.png") no-repeat center center fixed', 'important');
+  document.body.style.setProperty('background-size', 'cover', 'important');
+  document.body.style.setProperty('background-color', '#f0f0f0', 'important');
+  
+  // Fix cards if they have wrong styling
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.style.setProperty('background', 'rgba(255, 255, 255, 0.25)', 'important');
+    card.style.setProperty('backdrop-filter', 'blur(10px)', 'important');
+    card.style.setProperty('-webkit-backdrop-filter', 'blur(10px)', 'important');
+  });
+}
+
 // Initialize app when everything is ready
 function initApp() {
   try {
     console.log('Initializing app...');
+    
+    // Fix Telegram styling issues
+    fixTelegramStyling();
+    
     render();
+    
+    // Apply styling fixes after render
+    setTimeout(fixTelegramStyling, 100);
+    
     console.log('App initialized successfully');
   } catch (error) {
     console.error('Error initializing app:', error);

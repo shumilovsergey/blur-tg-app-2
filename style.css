@@ -27,9 +27,14 @@ body, html {
   overflow-x: hidden;
   
   /* Prevent Telegram from overriding styles */
-  --tg-color-scheme: light;
-  --tg-theme-bg-color: transparent;
-  --tg-theme-secondary-bg-color: transparent;
+  --tg-color-scheme: light !important;
+  --tg-theme-bg-color: transparent !important;
+  --tg-theme-secondary-bg-color: transparent !important;
+  --tg-theme-text-color: #333 !important;
+  --tg-theme-hint-color: #999 !important;
+  --tg-theme-link-color: #2481cc !important;
+  --tg-theme-button-color: transparent !important;
+  --tg-theme-button-text-color: #333 !important;
 }
 
 /* Telegram WebView specific fixes */
@@ -93,10 +98,49 @@ body.tg-viewport footer#navigation {
     overflow-y: auto;
   }
   
+  /* Force glassmorphic styling on mobile */
+  .card {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-radius: 1rem !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    padding: 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    transition: transform 0.2s !important;
+  }
+  
   .mini-player {
-    background: rgba(255, 255, 255, 0.4);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.4) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+  }
+  
+  /* Override any Telegram theme colors */
+  * {
+    color: inherit !important;
+  }
+  
+  /* Telegram mobile app specific overrides */
+  .tg-viewport .card,
+  [data-telegram] .card,
+  body[style*="background"] .card {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-radius: 1rem !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    padding: 1rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  /* Force override for any Telegram-injected styles */
+  body[style] {
+    background: url('./data/bg.png') no-repeat center center fixed !important;
+    background-size: cover !important;
+    background-color: #f0f0f0 !important;
   }
   
   footer#navigation {
