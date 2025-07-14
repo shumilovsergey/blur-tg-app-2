@@ -595,6 +595,39 @@ setInterval(() => {
 // Detect Telegram environment and add class for styling
 if (window.Telegram && window.Telegram.WebApp) {
   document.body.classList.add('tg-viewport');
+  // Force Telegram WebApp to use our styling
+  const tg = window.Telegram.WebApp;
+  tg.expand();
+  tg.disableVerticalSwipes();
+  
+  // Force consistent styling and prevent Telegram theme interference
+  document.documentElement.style.setProperty('--tg-color-scheme', 'light');
+  document.documentElement.style.setProperty('--tg-theme-bg-color', 'transparent');
+  document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', 'transparent');
+  
+  // Ensure our background is always applied
+  document.body.style.background = "url('./data/bg.png') no-repeat center center fixed";
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundColor = "#f0f0f0";
+  
+  // Override any inline styles that Telegram might apply
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+        const target = mutation.target;
+        if (target === document.body && target.style.background !== "url('./data/bg.png') no-repeat center center fixed") {
+          target.style.background = "url('./data/bg.png') no-repeat center center fixed";
+          target.style.backgroundSize = "cover";
+          target.style.backgroundColor = "#f0f0f0";
+        }
+      }
+    });
+  });
+  
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ['style']
+  });
 }
 
 render();
