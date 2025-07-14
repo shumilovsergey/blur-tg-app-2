@@ -630,4 +630,29 @@ if (window.Telegram && window.Telegram.WebApp) {
   });
 }
 
-render();
+// Initialize app when everything is ready
+function initApp() {
+  try {
+    console.log('Initializing app...');
+    render();
+    console.log('App initialized successfully');
+  } catch (error) {
+    console.error('Error initializing app:', error);
+    // Fallback: show a basic error message
+    const app = document.getElementById("app");
+    if (app) {
+      app.innerHTML = '<div style="padding: 20px; color: white;">Loading error. Please refresh.</div>';
+    }
+  }
+}
+
+// Wait for DOM and Telegram WebApp to be ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    // Give Telegram WebApp a moment to initialize
+    setTimeout(initApp, 100);
+  });
+} else {
+  // DOM is already ready
+  setTimeout(initApp, 100);
+}

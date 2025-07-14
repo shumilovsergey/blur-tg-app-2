@@ -24,8 +24,16 @@
   <!-- telegram staff -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
+    // Initialize Telegram WebApp
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+      
+      // Set theme colors for better mobile experience
+      tg.setHeaderColor('#000000');
+      tg.setBackgroundColor('#000000');
+    }
   </script>
   <script src="app.js"></script>
 </body>
