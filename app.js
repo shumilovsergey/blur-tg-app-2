@@ -181,7 +181,7 @@ function playSong(artistName, songTitle, songPath, coverPath) {
   state.isPlaying = true;
   
   // Set up Media Session for lock screen controls
-  setupMediaSession();
+  // setupMediaSession(); // Commented out for debugging
   
   // Don't auto-redirect to player screen - stay in current view
   render();
@@ -248,7 +248,7 @@ function handlePlayerAction(action) {
   }
 
   // Update media session playback state
-  updateMediaSessionPlaybackState();
+  // updateMediaSessionPlaybackState(); // Commented out for debugging
 
   render();
 }
@@ -522,6 +522,8 @@ function getSvgIcon(type) {
   return icons[type] || '';
 }
 
+/*
+// Commented out for debugging mobile Telegram
 function setupMediaSession() {
   if (!('mediaSession' in navigator)) {
     console.log('Media Session API not supported');
@@ -567,9 +569,12 @@ function setupMediaSession() {
   });
 
   // Set initial playback state
-  updateMediaSessionPlaybackState();
+  // updateMediaSessionPlaybackState(); // Commented out for debugging
 }
+*/
 
+/*
+// Commented out for debugging mobile Telegram
 function updateMediaSessionPlaybackState() {
   if (!('mediaSession' in navigator)) return;
 
@@ -588,9 +593,10 @@ function updateMediaSessionPlaybackState() {
 // Update position state periodically
 setInterval(() => {
   if (state.isPlaying && state.audio.duration) {
-    updateMediaSessionPlaybackState();
+    // updateMediaSessionPlaybackState(); // Commented out for debugging
   }
 }, 1000);
+*/
 
 // Detect Telegram environment and add class for styling
 if (window.Telegram && window.Telegram.WebApp) {
@@ -630,7 +636,8 @@ if (window.Telegram && window.Telegram.WebApp) {
   });
 }
 
-// Force correct styling for Telegram mobile
+/*
+// Commented out for debugging - Force correct styling for Telegram mobile
 function fixTelegramStyling() {
   // Remove any Telegram-injected inline styles
   document.body.style.removeProperty('background');
@@ -650,19 +657,15 @@ function fixTelegramStyling() {
     card.style.setProperty('-webkit-backdrop-filter', 'blur(10px)', 'important');
   });
 }
+*/
 
 // Initialize app when everything is ready
 function initApp() {
   try {
     console.log('Initializing app...');
     
-    // Fix Telegram styling issues
-    fixTelegramStyling();
-    
+    // Simple render without styling fixes for debugging
     render();
-    
-    // Apply styling fixes after render
-    setTimeout(fixTelegramStyling, 100);
     
     console.log('App initialized successfully');
   } catch (error) {

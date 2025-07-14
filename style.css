@@ -26,18 +26,12 @@ body, html {
   background-color: #f0f0f0;
   overflow-x: hidden;
   
-  /* Prevent Telegram from overriding styles */
-  --tg-color-scheme: light !important;
-  --tg-theme-bg-color: transparent !important;
-  --tg-theme-secondary-bg-color: transparent !important;
-  --tg-theme-text-color: #333 !important;
-  --tg-theme-hint-color: #999 !important;
-  --tg-theme-link-color: #2481cc !important;
-  --tg-theme-button-color: transparent !important;
-  --tg-theme-button-text-color: #333 !important;
+  /* Simple styling for debugging */
 }
 
-/* Telegram WebView specific fixes */
+/*
+// Commented out for debugging
+Telegram WebView specific fixes 
 .tg-viewport body,
 body.tg-viewport {
   background: url('./data/bg.png') no-repeat center center fixed !important;
@@ -71,8 +65,10 @@ body.tg-viewport footer#navigation {
   border-top: 2px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
 }
+*/
 
-/* Mobile-specific fixes to ensure consistent rendering */
+/*
+// Commented out for debugging - Mobile-specific fixes
 @media screen and (max-width: 768px) {
   body {
     background: url('./data/bg.png') no-repeat center center fixed !important;
@@ -98,7 +94,6 @@ body.tg-viewport footer#navigation {
     overflow-y: auto;
   }
   
-  /* Force glassmorphic styling on mobile */
   .card {
     background: rgba(255, 255, 255, 0.25) !important;
     border-radius: 1rem !important;
@@ -118,12 +113,10 @@ body.tg-viewport footer#navigation {
     -webkit-backdrop-filter: blur(15px) !important;
   }
   
-  /* Override any Telegram theme colors */
   * {
     color: inherit !important;
   }
   
-  /* Telegram mobile app specific overrides */
   .tg-viewport .card,
   [data-telegram] .card,
   body[style*="background"] .card {
@@ -136,11 +129,19 @@ body.tg-viewport footer#navigation {
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
   }
   
-  /* Force override for any Telegram-injected styles */
   body[style] {
     background: url('./data/bg.png') no-repeat center center fixed !important;
     background-size: cover !important;
     background-color: #f0f0f0 !important;
+  }
+}
+*/
+
+/* Simple mobile styling for debugging */
+@media screen and (max-width: 768px) {
+  main#app {
+    padding-bottom: 6rem;
+    padding-top: 1rem;
   }
   
   footer#navigation {

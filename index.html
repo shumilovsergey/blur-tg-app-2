@@ -24,23 +24,12 @@
   <!-- telegram staff -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // Initialize Telegram WebApp
+    // Simple Telegram WebApp initialization for debugging
     if (window.Telegram && window.Telegram.WebApp) {
       const tg = window.Telegram.WebApp;
       tg.ready();
       tg.expand();
-      
-      // Add class to body for Telegram-specific styling
-      document.body.classList.add('tg-viewport');
-      document.body.setAttribute('data-telegram', 'true');
-      
-      // Set theme colors for better mobile experience
-      tg.setHeaderColor('#000000');
-      tg.setBackgroundColor('#000000');
-      
-      // Override Telegram's theme variables
-      document.documentElement.style.setProperty('--tg-theme-bg-color', 'transparent');
-      document.documentElement.style.setProperty('--tg-theme-secondary-bg-color', 'transparent');
+      console.log('Telegram WebApp initialized');
     }
   </script>
   <script src="app.js"></script>
